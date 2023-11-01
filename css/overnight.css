@@ -1,0 +1,15 @@
+body {
+    background-image: url('/assets/images/hawaiiresort2.jpeg');
+}
+
+div {
+    background-color: white;
+}
+
+.room-radio {
+    padding: 5px;
+}
+
+.discount-radio {
+    padding: 5px;
+}
