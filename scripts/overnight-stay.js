@@ -10,7 +10,7 @@ const costForm = document.getElementById("signupForm");
 };
 
 //TODO create a function to return the room rate passing: _userDate, _roomType
-function getRoomRate(_userDate, _roomType) {
+function getRoomRate(_userDate, _roomType,) {
     let roomRate = 0;
     if (_userDate >= 5 && _userDate <= 7){
         if (_roomType === "two-bedroom") {
@@ -43,16 +43,19 @@ function calculateCost() {
     const checkInDate = document.getElementById("check-in").value; // check-in date stored
     const numberOfNights = document.getElementById('numbOfNights').value; // number of nights stored
     // inputs variables for number of adults/childrens
-    const numberOfAdults = document.getElementById('numOfAdults').value;
-    const numberOfChilds = document.getElementById('numOfChilds').value;
+    const numberOfAdults = parseFloat(document.getElementById('numOfAdults').value);
+    const numberOfChilds = parseFloat(document.getElementById('numOfChilds').value);
     // fetched all radios with querySelector of the name and value
     let selectedDiscount = document.querySelector('input[name="discountRadio"]:checked').value;
     let selectedRoomType = document.querySelector('input[name="roomType"]:checked').value;
     // date inputs
     const userDate = new Date(checkInDate); 
     const month = userDate.getMonth(); // gets the month from the value.
+    const totalPeopleSize = numberOfAdults + numberOfChilds;
+
 
     //* Calling the functions
+    maxOccupancy(totalPeopleSize, selectedRoomType);
     let newRoomRate = getRoomRate(month, selectedRoomType);
     let newDiscount = getDiscount(selectedDiscount);
 
@@ -79,9 +82,28 @@ function calculateCost() {
 
 //TODO function maxOccupency(_totalPeople, roomType)
 
-function maxOccupency(_totalPeople, roomType) {
-    // if statements for totalpeople and roomType radio || "king" || "queen" || "twobedroom"
-}
+function maxOccupancy(_totalPeople, _roomType) {
+    switch (_roomType) {
+        case 'queenRoom':
+          if (_totalPeople > 5) {
+            alert('The room you selected will not hold your party.')
+            throw new Error('The room you selected will not hold your party.')
+          }
+          break;
+        case 'kingRoom':
+          if (_totalPeople > 2) {
+            alert('The room you selected will not hold your party.')
+            throw new Error('The room you selected will not hold your party.')
+          }
+          break;
+        case 'two-bedroom':
+          if (_totalPeople > 6) {
+            alert('The room you selected will not hold your party.')
+            throw new Error('The room you selected will not hold your party.')
+          }
+          break;
+        }
+};
 
 // calling the function to initilize when button is pressed
 init();
